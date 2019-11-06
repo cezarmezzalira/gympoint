@@ -77,8 +77,6 @@ class RegistrationController {
       });
     }
 
-    //
-
     const start_date = new Date();
     // Add duration plan to end_date
     const end_date = addMonths(start_date, plan.duration);

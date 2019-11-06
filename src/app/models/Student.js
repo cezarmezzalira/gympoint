@@ -16,6 +16,10 @@ class Student extends Model {
     );
     return this;
   }
+
+  static associate(models) {
+    this.hasOne(models.Registration);
+  }
 }
 
 export default Student;

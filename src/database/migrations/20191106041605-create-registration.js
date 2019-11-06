@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('registrations', {
@@ -14,6 +12,7 @@ module.exports = {
         references: { model: 'students', key: 'id', as: 'student_id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        unique: true,
         allowNull: false,
       },
       plan_id: {

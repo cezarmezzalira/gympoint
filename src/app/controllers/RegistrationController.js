@@ -6,6 +6,8 @@ import Registration from '../models/Registration';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
 
+import Mail from '../../lib/Mail';
+
 class RegistrationController {
   async index(req, res) {
     const { page = 1 } = req.query;
@@ -89,6 +91,16 @@ class RegistrationController {
       start_date,
       end_date,
       price: totalPrice,
+    });
+
+    // After create a registration, an email has sent to Student
+    const student = await Student.findByPk(student_id, {
+      attributes: ['name', 'email'],
+    });
+    await Mail.sendMail({
+      to: `${student.name} <${student.email}>`,
+      subject: 'Matrícula do aluno',
+      text: 'Você foi matriculado com sucesso!',
     });
 
     return res.json(addRegistration);

@@ -1,5 +1,4 @@
 import { format, addMonths } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
 import * as Yup from 'yup';
 
 import Registration from '../models/Registration';

@@ -97,10 +97,25 @@ class RegistrationController {
     const student = await Student.findByPk(student_id, {
       attributes: ['name', 'email'],
     });
+
     await Mail.sendMail({
       to: `${student.name} <${student.email}>`,
       subject: 'Matrícula do aluno',
-      text: 'Você foi matriculado com sucesso!',
+      template: 'registration',
+      context: {
+        name: student.name,
+        startDate: format(start_date, 'dd/MM/yyyy'),
+        planName: `${plan.title} (${plan.duration}) ${
+          plan.duration === 1 ? 'mês' : 'meses'
+        }`,
+        endDate: `${format(end_date, 'dd/MM/yyyy')} (${plan.duration}) ${
+          plan.duration === 1 ? 'mês' : 'meses'
+        }`,
+        price: `${totalPrice.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        })}`,
+      },
     });
 
     return res.json(addRegistration);

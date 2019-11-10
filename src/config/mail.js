@@ -3,8 +3,8 @@ export default {
   port: 2525,
   secure: false,
   auth: {
-    user: '66ffe038d5ff16',
-    pass: '52924a1bdc841a',
+    user: 'b5fa2f840ca72c',
+    pass: '923a7d6fabfbb5',
   },
   default: {
     from: 'Cezar Augusto Mezzalira <cezar.mezzalira@gmail.com>',

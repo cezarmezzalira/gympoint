@@ -44,6 +44,11 @@ class StudentController {
       height: Yup.number(),
     });
 
+    // Check if values on request body are valids
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Invalid values!' });
+    }
+
     const { id: studentId } = req.params;
 
     const { email: studentEmail } = req.body;

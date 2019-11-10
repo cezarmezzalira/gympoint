@@ -19,6 +19,7 @@ class Student extends Model {
 
   static associate(models) {
     this.hasOne(models.Registration);
+    this.hasMany(models.Checkin, { as: 'checkins' });
   }
 }
 

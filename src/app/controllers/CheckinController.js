@@ -1,10 +1,29 @@
 import { subDays } from 'date-fns';
 import { Op } from 'sequelize';
 import Checkin from '../models/Checkin';
+import Student from '../models/Student';
 
 class CheckinController {
   async index(req, res) {
-    return res.json({ ok: true });
+    const currentDay = new Date();
+    const { id: student_id } = req.params;
+    // query returns count of checkins on last 7 days
+    const checkins = await Checkin.findAll({
+      where: {
+        student_id,
+        created_at: { [Op.between]: [subDays(currentDay, 7), currentDay] },
+      },
+      attributes: ['id', 'createdAt', 'updatedAt'],
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name'],
+        },
+      ],
+    });
+
+    return res.json(checkins);
   }
 
   async store(req, res) {
